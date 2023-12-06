@@ -77,27 +77,27 @@ try:
             else:
                 logging.warning(f" Link not found!!!")
                 link.append("Link not found")
+                
+            data = {
+                "Address": address,
+                "Price": price,
+                "Description": description,
+                "Amount_Reduced": amount_reduced,
+                "Link": link
+                }
+    
+            #creating a pandas dataframe from the extracted data
+            logging.info(" Saving extracted data into dataframe...")
+            df = pd.DataFrame(data)
+    
+            #saving file as csv
+            logging.info(" Saving data as a CSV file...")
+            df.to_csv(f"realestate_data_of_{city}.csv")
     
         else:
             logging.error(f" Request timed out. Card content not found. Terminating execution!")
             print("Request timed out. Card content not found. Terminating execution!")
             sys.exit()
-            
-        data = {
-            "Address": address,
-            "Price": price,
-            "Description": description,
-            "Amount_Reduced": amount_reduced,
-            "Link": link
-            }
-    
-    #creating a pandas dataframe from the extracted data
-    logging.info(" Saving extracted data into dataframe...")
-    df = pd.DataFrame(data)
-    
-    #saving file as csv
-    logging.info(" Saving data as a CSV file...")
-    df.to_csv(f"realestate_data_of_{city}.csv")
 
 #catcing exceptions
 except Exception as e:
