@@ -24,6 +24,7 @@ try:
     #check for error in the response
     if status==400 or status==401 or status==403 or status==404:
         logging.error("Bad Request or Unauthorized or Forbidden or Not Found. Terminating execution!")
+        sys.exit()
         
     soup = bs(response.text, features='lxml')
     
