@@ -36,21 +36,18 @@ for count in range(1,11):
     
     response = requests.get(url, headers=headers)
     
+    status = response.status_code
+
+    #check for error in the response
+    if status==400 or status==401 or status==403 or status==404:
+        logging.error("Bad Request or Unauthorized or Forbidden or Not Found. Terminating execution!")
+        sys.exit()
+    
     #adding delay in requests to avoid ip blocking
     time.sleep(2)
     
     soup = bs(response.text, features='lxml')
     try:
-        response = requests.get(url, headers=headers)
-        status = response.status_code
-
-        #check for error in the response
-        if status==400 or status==401 or status==403 or status==404:
-            logging.error("Bad Request or Unauthorized or Forbidden or Not Found. Terminating execution!")
-            sys.exit()
-
-        soup = bs(response.text, features='lxml')
-
         logging.info(f" Finding all properties on page {count}...")
         all_properties = soup.find_all("div", class_="BasePropertyCard_propertyCardWrap__Z5y4p")
 
