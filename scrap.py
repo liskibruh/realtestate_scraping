@@ -19,6 +19,12 @@ logging.basicConfig(filename=os.path.join(BASE_DIR, "scraper_logs_new.log") , le
 
 try:
     response = requests.get(url, headers=headers)
+    status = response.status_code
+    
+    #check for error in the response
+    if status==400 or status==401 or status==403 or status==404:
+        logging.error("Bad Request or Unauthorized or Forbidden or Not Found. Terminating execution!")
+        
     soup = bs(response.text, features='lxml')
     
     logging.info(" Finding all properties...")
