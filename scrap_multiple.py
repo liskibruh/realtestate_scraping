@@ -17,11 +17,6 @@ user_agents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 OPR/77.0.4054.277'  #opera
 ]
 
-headers = {
-    'User-Agent': random.choice(user_agents),
-    'Accept-Language': 'en-US,en;q=0.9'
-}
-
 BASE_DIR = os.getcwd()
 logging.basicConfig(filename=os.path.join(BASE_DIR, "scraper_multiple_logs.log") , level=logging.INFO)
 
@@ -33,6 +28,12 @@ link = []
 
 for count in range(1,11):
     url = f"https://www.realtor.com/realestateandhomes-search/{city}/pg-{count}"
+    
+    headers = {
+    'User-Agent': random.choice(user_agents),
+    'Accept-Language': 'en-US,en;q=0.9'
+    }
+    
     response = requests.get(url, headers=headers)
     
     #adding delay in requests to avoid ip blocking
