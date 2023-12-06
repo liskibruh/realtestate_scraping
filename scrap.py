@@ -47,7 +47,6 @@ try:
             address_div = card_content.find("div", class_="card-address truncate-line")
             if address_div:
                 address_parts = address_div.find_all("div", class_="truncate-line")
-                #address = " ".join([part.text.strip() for part in address_parts])
                 #address.append(" ".join([part.text.strip() for part in address_parts]))
                 address.append(" ".join([part.text for part in address_parts]))
             else:
